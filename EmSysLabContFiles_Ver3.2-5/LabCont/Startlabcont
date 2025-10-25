@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+# Load variables from student.env
+if [ -f container.env ]; then
+    source container.env
+else
+    echo "❌ container.env not found!"
+    exit 1
+fi
+#. ./container.env
+
+if [ -f student.env ]; then
+    source student.env
+else
+    echo "❌ student.env not found!"
+    exit 1
+fi
+#. ./login.env
+
+#source ./student.env
+#source ./container.env
+
+echo "Starting $USER_NAME container !!"
+echo "Starting $IMG_NAME:$VERSION under the name of $CONT_NAME"
+echo "mounting $MOUNT_PATH to /home/$USER_NAME/WorkDir"
+
+docker run -it --rm \
+	--privileged \
+	--hostname $CONT_NAME \
+	--mount type=bind,src=${MOUNT_PATH},target=/home/$USER_NAME/WorkDir \
+	${IMG_NAME}:${VERSION}
