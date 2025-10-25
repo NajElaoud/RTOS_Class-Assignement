@@ -1,0 +1,17 @@
+.
+|-- dir1
+|   |-- dir11
+|   |   `-- dir111
+|   |-- dir12
+|   |   |-- dir121
+|   |   `-- dir122
+|   |-- file1
+|   |-- file2
+|   `-- file21
+|-- dir2
+|   |-- file2
+|   |-- file22
+|   `-- file222
+`-- dir3
+
+8 directories, 6 files

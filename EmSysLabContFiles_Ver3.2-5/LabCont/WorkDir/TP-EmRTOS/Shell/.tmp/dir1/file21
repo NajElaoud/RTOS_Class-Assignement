@@ -1,0 +1,18 @@
+     1	***TP-SHELL***
+     2	total 12288
+     3	drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:07 [0m[01;34mdir1[0m/
+     4	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir2[0m/
+     5	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir3[0m/
+     6	.
+     7	|-- dir1
+     8	|   |-- dir11
+     9	|   |   `-- dir111
+    10	|   |-- dir12
+    11	|   |   |-- dir121
+    12	|   |   `-- dir122
+    13	|   |-- file1
+    14	|   `-- file2
+    15	|-- dir2
+    16	`-- dir3
+    17	
+    18	8 directories, 2 files

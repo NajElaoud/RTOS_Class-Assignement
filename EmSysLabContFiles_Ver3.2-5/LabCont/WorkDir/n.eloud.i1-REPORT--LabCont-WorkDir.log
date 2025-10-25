@@ -1,0 +1,23 @@
+===============================
+Lab     : WorkDir
+Manip   : LabCont
+Student : n.eloud.i1
+Date    : Tue Sep 30 01:27:44 UTC 2025
+===============================
+========== Folders ============
+/home/n.eloud.i1/WorkDir
+total 4096
+drwxr-xr-x 3 n.eloud.i1 sblab 4096 Sep 30 01:27 WorkDir
+..
+`-- WorkDir
+    |-- TP-EmRTOS
+    |   `-- GenLWRep-LabCont.sh
+    `-- n.eloud.i1-REPORT--LabCont-WorkDir.log
+
+2 directories, 2 files
+============ zsh ==============
+: 1759195607:0;mv ~/RTOS_Assignement/GenLWRep-LabCont.sh TP-EmRTOS
+: 1759195628:0;tree
+: 1759195659:0;sh TP-EmRTOS/GenLWRep-LabCont.sh
+===============================
+db4e136295838d0a59f774e7f0b5f6f9 ./n.eloud.i1-REPORT--LabCont-WorkDir.log+++
