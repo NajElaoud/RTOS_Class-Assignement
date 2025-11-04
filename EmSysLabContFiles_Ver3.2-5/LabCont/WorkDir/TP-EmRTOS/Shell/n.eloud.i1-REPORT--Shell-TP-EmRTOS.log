@@ -1,0 +1,582 @@
+===============================
+Lab     : TP-EmRTOS
+Manip   : Shell
+Student : n.eloud.i1
+Date    : Sun Oct  5 22:02:33 UTC 2025
+===============================
+========== Folders ============
+/home/n.eloud.i1/WorkDir/TP-EmRTOS/Shell
+total 32768
+-rw-rw-r-- 1 n.eloud.i1 sblab 1026 Sep 25 17:55 GenLWRep-Shell.sh
+-rw-rw-r-- 1 n.eloud.i1 sblab 1676 Oct  5 21:51 RegExp.sh
+-rw-r--r-- 1 n.eloud.i1 sblab  595 Oct  5 19:26 clean.log
+drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:26 dir1
+drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:26 dir2
+drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:26 dir3
+-rw-r--r-- 1 n.eloud.i1 sblab  233 Oct  5 22:02 n.eloud.i1-REPORT--Shell-TP-EmRTOS.log
+-rwxrwxr-x 1 n.eloud.i1 sblab 1227 Oct  5 19:25 script.sh
+.
+|-- GenLWRep-Shell.sh
+|-- RegExp.sh
+|-- clean.log
+|-- dir1
+|   |-- dir11
+|   |-- dir12
+|   |-- file1
+|   |-- file2
+|   |-- file21
+|   `-- file3
+|-- dir2
+|   |-- file1
+|   |-- file2
+|   |-- file22
+|   |-- file222
+|   `-- file3
+|-- dir3
+|-- n.eloud.i1-REPORT--Shell-TP-EmRTOS.log
+`-- script.sh
+
+5 directories, 14 files
+========= src Files ===========
+
+::::::::::::::::
+./dir1/file1
+::::::::::::::::
+     1	total 12288
+     2	drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:07 [0m[01;34mdir1[0m/
+     3	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir2[0m/
+     4	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir3[0m/
+
+::::::::::::::::
+./dir1/file3
+::::::::::::::::
+     1	     1	***TP-SHELL***
+     2	     2	total 12288
+     3	     3	drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:07 [0m[01;34mdir1[0m/
+     4	     4	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir2[0m/
+     5	     5	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir3[0m/
+     6	     6	.
+     7	     7	|-- dir1
+     8	     8	|   |-- dir11
+     9	     9	|   |   `-- dir111
+    10	    10	|   |-- dir12
+    11	    11	|   |   |-- dir121
+    12	    12	|   |   `-- dir122
+    13	    13	|   |-- file1
+    14	    14	|   `-- file2
+    15	    15	|-- dir2
+    16	    16	`-- dir3
+    17	    17	
+    18	    18	8 directories, 2 files
+
+::::::::::::::::
+./dir1/file2
+::::::::::::::::
+     1	***TP-SHELL***
+     2	total 12288
+     3	drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:07 [0m[01;34mdir1[0m/
+     4	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir2[0m/
+     5	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir3[0m/
+     6	.
+     7	|-- dir1
+     8	|   |-- dir11
+     9	|   |   `-- dir111
+    10	|   |-- dir12
+    11	|   |   |-- dir121
+    12	|   |   `-- dir122
+    13	|   |-- file1
+    14	|   `-- file2
+    15	|-- dir2
+    16	`-- dir3
+    17	
+    18	8 directories, 2 files
+
+::::::::::::::::
+./dir1/file21
+::::::::::::::::
+     1	     1	***TP-SHELL***
+     2	     2	total 12288
+     3	     3	drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:07 [0m[01;34mdir1[0m/
+     4	     4	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir2[0m/
+     5	     5	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir3[0m/
+     6	     6	.
+     7	     7	|-- dir1
+     8	     8	|   |-- dir11
+     9	     9	|   |   `-- dir111
+    10	    10	|   |-- dir12
+    11	    11	|   |   |-- dir121
+    12	    12	|   |   `-- dir122
+    13	    13	|   |-- file1
+    14	    14	|   `-- file2
+    15	    15	|-- dir2
+    16	    16	`-- dir3
+    17	    17	
+    18	    18	8 directories, 2 files
+
+::::::::::::::::
+./.tmp/dir1/file1
+::::::::::::::::
+     1	total 12288
+     2	drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:07 [0m[01;34mdir1[0m/
+     3	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir2[0m/
+     4	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir3[0m/
+
+::::::::::::::::
+./.tmp/dir1/file3
+::::::::::::::::
+     1	     1	***TP-SHELL***
+     2	     2	total 12288
+     3	     3	drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:07 [0m[01;34mdir1[0m/
+     4	     4	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir2[0m/
+     5	     5	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir3[0m/
+     6	     6	.
+     7	     7	|-- dir1
+     8	     8	|   |-- dir11
+     9	     9	|   |   `-- dir111
+    10	    10	|   |-- dir12
+    11	    11	|   |   |-- dir121
+    12	    12	|   |   `-- dir122
+    13	    13	|   |-- file1
+    14	    14	|   `-- file2
+    15	    15	|-- dir2
+    16	    16	`-- dir3
+    17	    17	
+    18	    18	8 directories, 2 files
+
+::::::::::::::::
+./.tmp/dir1/file2
+::::::::::::::::
+     1	***TP-SHELL***
+     2	total 12288
+     3	drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:07 [0m[01;34mdir1[0m/
+     4	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir2[0m/
+     5	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir3[0m/
+     6	.
+     7	|-- dir1
+     8	|   |-- dir11
+     9	|   |   `-- dir111
+    10	|   |-- dir12
+    11	|   |   |-- dir121
+    12	|   |   `-- dir122
+    13	|   |-- file1
+    14	|   `-- file2
+    15	|-- dir2
+    16	`-- dir3
+    17	
+    18	8 directories, 2 files
+
+::::::::::::::::
+./.tmp/dir1/file21
+::::::::::::::::
+     1	     1	***TP-SHELL***
+     2	     2	total 12288
+     3	     3	drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:07 [0m[01;34mdir1[0m/
+     4	     4	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir2[0m/
+     5	     5	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir3[0m/
+     6	     6	.
+     7	     7	|-- dir1
+     8	     8	|   |-- dir11
+     9	     9	|   |   `-- dir111
+    10	    10	|   |-- dir12
+    11	    11	|   |   |-- dir121
+    12	    12	|   |   `-- dir122
+    13	    13	|   |-- file1
+    14	    14	|   `-- file2
+    15	    15	|-- dir2
+    16	    16	`-- dir3
+    17	    17	
+    18	    18	8 directories, 2 files
+
+::::::::::::::::
+./.tmp/dir2/file222
+::::::::::::::::
+     1	.
+     2	|-- dir1
+     3	|   |-- dir11
+     4	|   |   `-- dir111
+     5	|   |-- dir12
+     6	|   |   |-- dir121
+     7	|   |   `-- dir122
+     8	|   |-- file1
+     9	|   |-- file2
+    10	|   `-- file21
+    11	|-- dir2
+    12	|   |-- file2
+    13	|   |-- file22
+    14	|   `-- file222
+    15	`-- dir3
+    16	
+    17	8 directories, 6 files
+
+::::::::::::::::
+./.tmp/dir2/file1
+::::::::::::::::
+     1	total 12288
+     2	drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:07 [0m[01;34mdir1[0m/
+     3	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir2[0m/
+     4	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir3[0m/
+
+::::::::::::::::
+./.tmp/dir2/file22
+::::::::::::::::
+     1	-rw-r--r-- 1 n.eloud.i1 sblab 521 Oct  5 19:07 dir1/file21
+     2	-rw-r--r-- 1 n.eloud.i1 sblab   0 Oct  5 19:08 dir2/file22
+
+::::::::::::::::
+./.tmp/dir2/file3
+::::::::::::::::
+     1	     1	***TP-SHELL***
+     2	     2	total 12288
+     3	     3	drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:07 [0m[01;34mdir1[0m/
+     4	     4	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir2[0m/
+     5	     5	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir3[0m/
+     6	     6	.
+     7	     7	|-- dir1
+     8	     8	|   |-- dir11
+     9	     9	|   |   `-- dir111
+    10	    10	|   |-- dir12
+    11	    11	|   |   |-- dir121
+    12	    12	|   |   `-- dir122
+    13	    13	|   |-- file1
+    14	    14	|   `-- file2
+    15	    15	|-- dir2
+    16	    16	`-- dir3
+    17	    17	
+    18	    18	8 directories, 2 files
+
+::::::::::::::::
+./.tmp/dir2/file2
+::::::::::::::::
+     1	***TP-SHELL***
+     2	total 12288
+     3	drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:07 [0m[01;34mdir1[0m/
+     4	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir2[0m/
+     5	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir3[0m/
+     6	.
+     7	|-- dir1
+     8	|   |-- dir11
+     9	|   |   `-- dir111
+    10	|   |-- dir12
+    11	|   |   |-- dir121
+    12	|   |   `-- dir122
+    13	|   |-- file1
+    14	|   `-- file2
+    15	|-- dir2
+    16	`-- dir3
+    17	
+    18	8 directories, 2 files
+
+::::::::::::::::
+./RegExp.sh
+::::::::::::::::
+     1	#!/bin/sh
+     2	echo "%%%%%%%%%%%%%%%%%%%%%%%%"
+     3	echo "%  Regular Expression  %"
+     4	echo "%%%%%%%%%%%%%%%%%%%%%%%%"
+     5	echo "========================"
+     6	ip a    ## Affiche les informations detaillees des interfaces reseau
+     7	          ## (noms, etats, adresses IP, ...)
+     8	
+     9	echo "========================"
+    10	ip a | grep -Eo 'inet ([0-9]*\.){3}[0-9]*'
+    11	## Explication : Extrait toutes les lignes contenant 'inet' suivie d'une adresse IP
+    12	## Explication : -E active les expressions regulieres etendues, -o affiche uniquement la partie correspondante
+    13	
+    14	echo "========================"
+    15	ip a | grep -Eo 'inet ([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*'
+    16	## Explication : Premiere commande extrait 'inet X.X.X.X', deuxieme commande extrait seulement l'adresse IP
+    17	## Explication : Le deuxieme grep isole uniquement la partie adresse IP sans le mot 'inet'
+    18	## Explication : Resultat : affiche toutes les adresses IP des interfaces reseau
+    19	
+    20	echo "========================"
+    21	ip a | grep -Eo 'inet ([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'
+    22	## Explication : Meme traitement que precedent mais exclut l'adresse de loopback
+    23	## Explication : grep -v inverse la selection pour exclure l'adresse 127.0.0.1
+    24	## Explication : Resultat : affiche seulement les adresses IP non-loopback
+    25	
+    26	echo "========================"
+    27	ip a | sed -En 's/127.0.0.1//;s/.*inet (([0-9]*\.){3}[0-9]*).*/\2/p'
+    28	## Explication : sed -E active les regex etendues, -n supprime l'affichage par defaut
+    29	## Explication : Premiere substitution supprime 127.0.0.1, deuxieme capture l'adresse IP apres 'inet'
+    30	## Explication : /\1/p affiche seulement le groupe capture (l'adresse IP) et p imprime les lignes modifiees
+
+::::::::::::::::
+./GenLWRep-Shell.sh
+::::::::::::::::
+     1	#!/bin/bash
+     2	CurrentPath=$(pwd)
+     3	ParentFolder=$(echo $CurrentPath | sed -e 's;\/[^/]*$;;') # cut away "/file.txt";'$' is end of string
+     4	#echo "Parent folder $ParentFolder"
+     5	LAB=$(echo $ParentFolder | sed -e 's;.*\/;;')  # cut away "/a/b/c/"
+     6	#echo $LAB
+     7	
+     8	MANIP=$(echo $CurrentPath | sed -e 's;.*\/;;')
+     9	#MANIP=MakePrj
+    10	#echo $MANIP
+    11	
+    12	echo "Generating : ./$(whoami)-REPORT--$MANIP-$LAB report ..." && sleep 5
+    13	REPORT="./$(whoami)-REPORT--$MANIP-$LAB.log"
+    14	{
+    15		echo "==============================="
+    16		echo "Lab     : $LAB"
+    17		echo "Manip   : $MANIP"
+    18		echo "Student : $(whoami)"
+    19		echo "Date    : $(date)"
+    20		echo "==============================="
+    21		echo "========== Folders ============" &&
+    22		echo $CurrentPath
+    23		ls -l . && tree -L 2 .
+    24		echo "========= src Files ===========" &&
+    25		for fn in $(find ./ -type f); do
+    26			printf "\n::::::::::::::::\n$fn\n::::::::::::::::\n";
+    27			cat -n "$fn";
+    28		done
+    29		echo "============ zsh ==============" &&
+    30		cat ~/.history-zsh
+    31		echo "==============================="
+    32	} > $REPORT 2>&1
+    33	echo $(md5sum $REPORT)+++ >> $REPORT
+
+::::::::::::::::
+./script.sh
+::::::::::::::::
+     1	#!/bin/sh 
+     2	
+     3	## Cree un repertoire temporel ".tmp" et copie tous les repertoires "dir" dedans
+     4	mkdir .tmp && cp -r ./dir* .tmp/
+     5	
+     6	## Affiche un banner
+     7	echo "%%%%%%%%%%%%%%%%%%%%%%%%"
+     8	echo "%     Shell Linux      %"
+     9	echo "%%%%%%%%%%%%%%%%%%%%%%%%"
+    10	
+    11	echo "Current PATH :"               ## Affiche un message
+    12	pwd                                 ## Affiche le chemin actuel du repertoire
+    13	echo "Creating subtree .."
+    14	mkdir -p dir31/dir311 dir32/dir321  ## Cree des reperoires imbriques (nested)
+    15	mkdir dir32/dir322                  ## Cree un repertoire "dir322" dans "dir32"
+    16	
+    17	echo "Folder contents : "
+    18	ls -l                               ## Affiche une liste detaillee des repertoires/fichiers
+    19	echo "Folder tree : "
+    20	tree                                ## Affiche la structure du repertoire actuel
+    21	tree ..                             ## Affiche la structure du repertoire parent
+    22	           
+    23	echo "Cleaning ..."
+    24	rm -rv dir* > clean.log             ## Supprime tous les repertoires qui commence
+    25	                                    ## avec dir et enregitre dans clean.log
+    26	
+    27	echo "END!!"
+    28	cp -r .tmp/dir* .                   ## Restore les repertoires depuis .tmp 
+    29	                                    ## et recopie les repertoires sauvegardes
+
+::::::::::::::::
+./dir2/file222
+::::::::::::::::
+     1	.
+     2	|-- dir1
+     3	|   |-- dir11
+     4	|   |   `-- dir111
+     5	|   |-- dir12
+     6	|   |   |-- dir121
+     7	|   |   `-- dir122
+     8	|   |-- file1
+     9	|   |-- file2
+    10	|   `-- file21
+    11	|-- dir2
+    12	|   |-- file2
+    13	|   |-- file22
+    14	|   `-- file222
+    15	`-- dir3
+    16	
+    17	8 directories, 6 files
+
+::::::::::::::::
+./dir2/file1
+::::::::::::::::
+     1	total 12288
+     2	drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:07 [0m[01;34mdir1[0m/
+     3	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir2[0m/
+     4	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir3[0m/
+
+::::::::::::::::
+./dir2/file22
+::::::::::::::::
+     1	-rw-r--r-- 1 n.eloud.i1 sblab 521 Oct  5 19:07 dir1/file21
+     2	-rw-r--r-- 1 n.eloud.i1 sblab   0 Oct  5 19:08 dir2/file22
+
+::::::::::::::::
+./dir2/file3
+::::::::::::::::
+     1	     1	***TP-SHELL***
+     2	     2	total 12288
+     3	     3	drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:07 [0m[01;34mdir1[0m/
+     4	     4	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir2[0m/
+     5	     5	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir3[0m/
+     6	     6	.
+     7	     7	|-- dir1
+     8	     8	|   |-- dir11
+     9	     9	|   |   `-- dir111
+    10	    10	|   |-- dir12
+    11	    11	|   |   |-- dir121
+    12	    12	|   |   `-- dir122
+    13	    13	|   |-- file1
+    14	    14	|   `-- file2
+    15	    15	|-- dir2
+    16	    16	`-- dir3
+    17	    17	
+    18	    18	8 directories, 2 files
+
+::::::::::::::::
+./dir2/file2
+::::::::::::::::
+     1	***TP-SHELL***
+     2	total 12288
+     3	drwxr-xr-x 4 n.eloud.i1 sblab 4096 Oct  5 19:07 [0m[01;34mdir1[0m/
+     4	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir2[0m/
+     5	drwxr-xr-x 2 n.eloud.i1 sblab 4096 Oct  5 19:06 [01;34mdir3[0m/
+     6	.
+     7	|-- dir1
+     8	|   |-- dir11
+     9	|   |   `-- dir111
+    10	|   |-- dir12
+    11	|   |   |-- dir121
+    12	|   |   `-- dir122
+    13	|   |-- file1
+    14	|   `-- file2
+    15	|-- dir2
+    16	`-- dir3
+    17	
+    18	8 directories, 2 files
+
+::::::::::::::::
+./clean.log
+::::::::::::::::
+     1	removed directory 'dir1/dir12/dir122'
+     2	removed directory 'dir1/dir12/dir121'
+     3	removed directory 'dir1/dir12'
+     4	removed directory 'dir1/dir11/dir111'
+     5	removed directory 'dir1/dir11'
+     6	removed 'dir1/file1'
+     7	removed 'dir1/file3'
+     8	removed 'dir1/file2'
+     9	removed 'dir1/file21'
+    10	removed directory 'dir1'
+    11	removed 'dir2/file222'
+    12	removed 'dir2/file1'
+    13	removed 'dir2/file22'
+    14	removed 'dir2/file3'
+    15	removed 'dir2/file2'
+    16	removed directory 'dir2'
+    17	removed directory 'dir3'
+    18	removed directory 'dir31/dir311'
+    19	removed directory 'dir31'
+    20	removed directory 'dir32/dir322'
+    21	removed directory 'dir32/dir321'
+    22	removed directory 'dir32'
+
+::::::::::::::::
+./n.eloud.i1-REPORT--Shell-TP-EmRTOS.log
+::::::::::::::::
+cat: ./n.eloud.i1-REPORT--Shell-TP-EmRTOS.log: input file is output file
+============ zsh ==============
+: 1759691124:0;history
+: 1759691143:0;tree
+: 1759691154:0;cd TP-EmRTOS
+: 1759691177:0;mkdir Shell && cd Shell
+: 1759691188:0;mkdir dir1 dir2 dir3
+: 1759691194:0;mkdir -p dir1/dir11/dir111
+: 1759691202:0;mkdir -p dir1/dir12/dir121
+: 1759691210:0;mkdir dir1/dir12/dir122
+: 1759691215:0;tree -L 1
+: 1759691219:0;tree -L 2
+: 1759691231:0;echo "***TP-SHELL***" > dir1/file1
+: 1759691238:0;ls -l > dir1/file1
+: 1759691244:0;cat dir1/file1
+: 1759691250:0;echo "***TP-SHELL***" > dir1/file2
+: 1759691256:0;ls -l >> dir1/file2
+: 1759691261:0;cat dir1/file2
+: 1759691269:0;tree >> dir1/file2
+: 1759691275:0;cat -n dir1/file2 > dir1/file21
+: 1759691283:0;cat dir1/file21
+: 1759691292:0;cat -n dir1/file2 dir1/file21
+: 1759691298:0;touch dir2/file2
+: 1759691305:0;touch dir2/file22 dir2/file222
+: 1759691309:0;tree
+: 1759691314:0;tree >> dir2/file222
+: 1759691320:0;ll dir*/file? > dir2/file2
+: 1759691325:0;ll dir*/file?? > dir2/file22
+: 1759691332:0;ll dir*/file*
+: 1759691356:0;cat -n
+: 1759691379:0;cat -n > dir2/file3
+: 1759691431:0;tree
+: 1759691438:0;cd dir1
+: 1759691449:0;echo Hello From Linux shell | wc
+: 1759691456:0;ls | wc -l
+: 1759691463:0;ls | cat -n
+: 1759691472:0;cat -n < file2 | wc > file3
+: 1759691478:0;>file3 cat<file2 -n
+: 1759691515:0;cd && pwd
+: 1759691527:0;cat /home/<VotreLogin>/WorkDir/TP-EmRTOS/Shell/dir1/file3
+: 1759691549:0;cat ~/WorkDir/TP-EmRTOS/Shell/dir1/file3
+: 1759691568:0;cd ~/WorkDir/TP-EmRTOS/Shell/dir2
+: 1759691574:0;pwd
+: 1759691581:0;cp ../dir1/file? ./
+: 1759691585:0;tree
+: 1759691590:0;tree ..
+: 1759691603:0;rm *.o
+: 1759691626:0;alias msg="echo \"***TP-SHELL***\""
+: 1759691632:0;alias tree1="tree -L 1"
+: 1759691638:0;alias tree2="tree -L 2"
+: 1759691643:0;msg && tree1 && tree2
+: 1759691985:0;tree
+: 1759691992:0;cd ..
+: 1759691995:0;tree
+: 1759692069:0;mv 2bf.script.sh script.sh
+: 1759692072:0;ls
+: 1759692091:0;nano script.sh
+: 1759692351:0;sh script.sh
+: 1759692369:0;chmod +x script.sh
+: 1759692374:0;./script.sh
+: 1759692408:0;tree
+: 1759692444:0;ls
+: 1759692469:0;cd ..
+: 1759692473:0;cd Shell
+: 1759692475:0;tree
+: 1759692524:0;mv 2bf.RegExp.sh RegExp.sh
+: 1759692548:0;tree
+: 1759692566:0;nano RegExp.sh
+: 1759692584:0;ifconfig
+: 1759692603:0;ip a
+: 1759692712:0;sudo apt-file search ip
+: 1759693059:0;ip
+: 1759693147:0;sudo apt install iproute2
+: 1759693423:0;ifconfig
+: 1759693444:0;ifconfig | grep "inet addr"
+: 1759693499:0;ifconfig | grep "inet"
+: 1759693562:0;sed
+: 1759694475:0;ifconfig eth0 | sed -n 's/.*inet \([0-9.]*\).*/\1/p'
+: 1759694559:0;ifconfig eth1 | sed -n 's/.*inet \([0-9.]*\).*/\1/p'
+: 1759694577:0;ifconfig lo | sed -n 's/.*inet \([0-9.]*\).*/\1/p'
+: 1759694709:0;nano RegExp.sh
+: 1759696868:0;sudo apt install iprout2
+: 1759696914:0;sudo apt install iproute2
+: 1759696996:0;ip a
+: 1759697023:0;sudo apt-file search ip
+: 1759697034:0;sudo apt update
+: 1759697054:0;sudo apt install iproute2
+: 1759697064:0;ip a
+: 1759697248:0;ip a | grep -Eo 'inet ([0-9]*\.){3}[0-9]*'
+: 1759697269:0;ip a | sed -En 's/127.0.0.1//;s/.*inet (([0-9]*\.){3}[0-9]*).*/\2/p'
+: 1759697278:0;ip a | sed -En 's/127.0.0.1//;s/.*inet (([0-9]*\.){3}[0-9]*).*/\1/p'
+: 1759698164:0;ip a | grep -Eo 'inet ([0-9]*\.){3}[0-9]*'
+: 1759698895:0;ip a | grep -Eo 'inet ([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*'
+: 1759698907:0;ip a | grep -Eo 'inet ([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'
+: 1759698917:0;ip a | sed -En 's/127.0.0.1//;s/.*inet (([0-9]*\.){3}[0-9]*).*/\2/p'
+: 1759698925:0;ip a | sed -En 's/127.0.0.1//;s/.*inet (([0-9]*\.){3}[0-9]*).*/\1/p'
+: 1759698935:0;nano RegExp.sh
+: 1759700807:0;ip a | grep -Eo 'inet ([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'
+: 1759701077:0;nano RegExp.sh
+: 1759701111:0;bash
+===============================
+3cb6a82f211fcdb6046cc6e9257b984c ./n.eloud.i1-REPORT--Shell-TP-EmRTOS.log+++
