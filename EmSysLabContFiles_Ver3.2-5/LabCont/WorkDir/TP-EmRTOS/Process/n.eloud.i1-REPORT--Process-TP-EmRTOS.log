@@ -1,0 +1,424 @@
+===============================
+Lab     : TP-EmRTOS
+Manip   : Process
+Student : n.eloud.i1
+Date    : Sun Oct 26 09:29:27 UTC 2025
+===============================
+========== Folders ============
+/home/n.eloud.i1/WorkDir/TP-EmRTOS/Process
+total 102400
+-rwxrwxr-x 1 n.eloud.i1 sblab  1561 Oct 20 23:58 GenLWRep-Process.sh
+-rwxr-xr-x 1 n.eloud.i1 sblab 17080 Oct 25 22:51 PrintPIDStatus
+-rw-rw-r-- 1 n.eloud.i1 sblab   401 Oct 25 22:51 PrintPIDStatus.c
+-rw-r--r-- 1 n.eloud.i1 sblab  3024 Oct 25 22:51 PrintPIDStatus.o
+-rw-rw-r-- 1 n.eloud.i1 sblab   614 Oct 25 22:50 libPIDStatus.h
+-rw-rw-r-- 1 n.eloud.i1 sblab   335 Oct 20 23:57 makefile
+-rw-r--r-- 1 n.eloud.i1 sblab   237 Oct 26 09:29 n.eloud.i1-REPORT--Process-TP-EmRTOS.log
+-rwxr-xr-x 1 n.eloud.i1 sblab 17128 Oct 26 09:03 process
+-rw-rw-r-- 1 n.eloud.i1 sblab  1177 Oct 26 09:03 process.c
+-rw-r--r-- 1 n.eloud.i1 sblab  3488 Oct 26 09:03 process.o
+-rwxr-xr-x 1 n.eloud.i1 sblab 17376 Oct 26 09:19 status
+-rw-rw-r-- 1 n.eloud.i1 sblab  1361 Oct 26 09:19 status.c
+-rw-r--r-- 1 n.eloud.i1 sblab  3936 Oct 26 09:19 status.o
+.
+|-- GenLWRep-Process.sh
+|-- PrintPIDStatus
+|-- PrintPIDStatus.c
+|-- PrintPIDStatus.o
+|-- libPIDStatus.h
+|-- makefile
+|-- n.eloud.i1-REPORT--Process-TP-EmRTOS.log
+|-- process
+|-- process.c
+|-- process.o
+|-- status
+|-- status.c
+`-- status.o
+
+0 directories, 13 files
+========= src Files ===========
+
+::::::::::::::::
+./status.c
+::::::::::::::::
+     1	#include <stdio.h>
+     2	#include <stdlib.h>
+     3	#include <string.h>
+     4	#include <unistd.h>
+     5	#include <sys/wait.h>
+     6	#include "libPIDStatus.h"
+     7	
+     8	void PrintPIDStatus(pid_t pid);
+     9	
+    10	int main(void)
+    11	{
+    12	  pid_t pid;
+    13	  int status;
+    14	  
+    15	  // 1. Le père consulte son propre état
+    16	  printf("MAIN: PID(%d) : ", getpid()); 
+    17	  PrintPIDStatus(getpid());
+    18	
+    19	  // Le père se clone
+    20	  if ((pid = fork()) == -1)
+    21	  {
+    22	    perror("fork () problem !!!");
+    23	    exit(EXIT_FAILURE);
+    24	  }
+    25	  
+    26	  if (pid > 0) { 
+    27	    /* ========== PROCESSUS PÈRE ========== */
+    28	    // 1. Le père s'endort pendant 5 secondes
+    29	    printf("\nPère : sleeping !!\n");
+    30	    sleep(5);
+    31	
+    32	    // 3. À son réveil, le père examine l'état du fils AVANT wait
+    33	    printf("Père : Etat du fils avant wait(...) : ");
+    34	    PrintPIDStatus(pid);
+    35	    
+    36	    // Le père lit le status de retour du fils
+    37	    waitpid(pid, &status, 0);
+    38	    
+    39	    // 3. Le père examine l'état du fils APRÈS wait
+    40	    printf("Père : Etat du fils après wait(...) : ");
+    41	    PrintPIDStatus(pid);
+    42	    
+    43	    printf("\nPère : Je me termine.\n");
+    44	    
+    45	  } else { 
+    46	    /* ========== PROCESSUS FILS ========== */
+    47	    // 2. Le fils examine l'état du père (qui dort)
+    48	    printf("Fils : Etat du père : ");
+    49	    PrintPIDStatus(getppid());
+    50	    
+    51	    // 2. Le fils se termine immédiatement
+    52	    printf("Fils : Je me termine.\n");
+    53	    exit(EXIT_SUCCESS);
+    54	  }
+    55	  
+    56	  exit(EXIT_SUCCESS);
+    57	}
+
+::::::::::::::::
+./PrintPIDStatus.c
+::::::::::::::::
+     1	#include <stdio.h>
+     2	#include <ctype.h>
+     3	#include <stdlib.h>
+     4	#include <unistd.h>
+     5	#include "libPIDStatus.h"
+     6	
+     7	int main(int argc, char** argv)
+     8	{
+     9	  pid_t pid;
+    10	  char* str;
+    11	
+    12	  if(argc<2)
+    13	  {
+    14	    printf("Missing PID !!");
+    15	    exit(-2);
+    16	  }
+    17	
+    18	  if(!(isNum(argv[1])))
+    19	  {
+    20	    printf("Wrong PID !!");
+    21	    exit(-1);
+    22	  } else {
+    23	   pid = strtol(argv[1], &str, 10);
+    24	   PrintPIDStatus(pid);
+    25	 }
+    26	  exit(EXIT_SUCCESS);
+    27	}
+    28	
+
+::::::::::::::::
+./process.c
+::::::::::::::::
+     1	#include <unistd.h>
+     2	#include <stdio.h>
+     3	#include <stdlib.h>
+     4	#include <sys/wait.h>
+     5	
+     6	#define Cp 1000000000
+     7	#define Cf  1000000000
+     8	
+     9	int status;
+    10	pid_t pidFils, wpid;
+    11	
+    12	int process_fils();
+    13	int process_pere();
+    14	int main() {
+    15	
+    16	  printf("Main : Mon pid est %d\n", getpid());
+    17	  switch (pidFils=fork()) {
+    18	  case -1:
+    19	    perror("fork problem !!");
+    20	    exit(-2);
+    21	  case 0: //pidFils == 0
+    22	    printf("Fils :\n\tMon pid est %d,\n\tle pid de mon père est %d.\n", getpid(), getppid());
+    23	    process_fils();
+    24	    break;
+    25	  default: //pidFils > 0
+    26	    printf("Père :\n\tMon pid est %d,\n\tle pid de mon père est %d,\n \t le pid de mon fils est %d.\n", getpid(), getppid(), pidFils);
+    27	    process_pere();
+    28	    break;
+    29	  }
+    30	  return 0;
+    31	}
+    32	
+    33	int process_fils() {
+    34	  //sleep(3);
+    35	  int i,j;
+    36	  for(i=0;i<13;i++){
+    37	    printf("\tFils \n");
+    38	    /* sleep(1); */
+    39	    for(j=0;j<Cf;j++){;}
+    40	  }
+    41	  exit(0);
+    42	}
+    43	
+    44	int process_pere() {
+    45	  int i,j;
+    46	  for(i=0;i<10;i++){
+    47	    printf("Père \n");
+    48	    /* sleep(1); */
+    49	    for(j=0;j<Cp;j++){;}
+    50	  }
+    51	    printf("Père : Synchronization sur la fin du processus fils \n");
+    52	    wpid = waitpid(pidFils,&status,0);
+    53	    printf("Père : Fin du processus fils de pid %d\n", wpid);
+    54	  exit(0);
+    55	}
+========= bin Files ===========
+
+::::::::::::::::
+./process
+::::::::::::::::
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Entry point address:               0x10c0
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          15208 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         11
+  Size of section headers:           64 (bytes)
+  Number of section headers:         30
+  Section header string table index: 29
+
+::::::::::::::::
+===> Running ./process ::
+Main : Mon pid est 196
+Fils :
+	Mon pid est 197,
+	le pid de mon père est 196.
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+Main : Mon pid est 196
+Père :
+	Mon pid est 196,
+	le pid de mon père est 173,
+ 	 le pid de mon fils est 197.
+Père 
+Père 
+Père 
+Père 
+Père 
+Père 
+Père 
+Père 
+Père 
+Père 
+Père : Synchronization sur la fin du processus fils 
+Père : Fin du processus fils de pid 197
+
+
+::::::::::::::::
+./status
+::::::::::::::::
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Entry point address:               0x1130
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          15456 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         11
+  Size of section headers:           64 (bytes)
+  Number of section headers:         30
+  Section header string table index: 29
+
+::::::::::::::::
+===> Running ./status ::
+MAIN: PID(199) : 	==>Process(199) : R (running)
+
+Fils : Etat du père : 	==>Process(199) : S (sleeping)
+Fils : Je me termine.
+MAIN: PID(199) : 	==>Process(199) : R (running)
+
+
+Père : sleeping !!
+Père : Etat du fils avant wait(...) : 	==>Process(200) : Z (zombie)
+
+Père : Etat du fils après wait(...) : 	==>Process(200) Does not exist !
+Père : Je me termine.
+
+======== Compile test =========
+/home/n.eloud.i1/WorkDir/TP-EmRTOS/Process
+rm -rvf *.o
+removed 'PrintPIDStatus.o'
+removed 'process.o'
+removed 'status.o'
+rm -rvf process status PrintPIDStatus
+removed 'process'
+removed 'status'
+removed 'PrintPIDStatus'
+gcc -o process.o -c process.c -W  
+gcc -o process process.o -lpthread
+gcc -o status.o -c status.c -W  
+gcc -o status status.o -lpthread
+gcc -o PrintPIDStatus.o -c PrintPIDStatus.c -W  
+gcc -o PrintPIDStatus PrintPIDStatus.o -lpthread
+.
+|-- GenLWRep-Process.sh
+|-- PrintPIDStatus
+|-- PrintPIDStatus.c
+|-- PrintPIDStatus.o
+|-- libPIDStatus.h
+|-- makefile
+|-- n.eloud.i1-REPORT--Process-TP-EmRTOS.log
+|-- process
+|-- process.c
+|-- process.o
+|-- status
+|-- status.c
+|-- status.o
+`-- stdin.txt
+
+0 directories, 14 files
+======= Execution test ========
+===> Running ./process ::
+Main : Mon pid est 225
+Fils :
+	Mon pid est 226,
+	le pid de mon père est 225.
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+	Fils 
+Main : Mon pid est 225
+Père :
+	Mon pid est 225,
+	le pid de mon père est 173,
+ 	 le pid de mon fils est 226.
+Père 
+Père 
+Père 
+Père 
+Père 
+Père 
+Père 
+Père 
+Père 
+Père 
+Père : Synchronization sur la fin du processus fils 
+Père : Fin du processus fils de pid 226
+
+===> Running ./status ::
+MAIN: PID(227) : 	==>Process(227) : R (running)
+
+Fils : Etat du père : 	==>Process(227) : S (sleeping)
+Fils : Je me termine.
+MAIN: PID(227) : 	==>Process(227) : R (running)
+
+
+Père : sleeping !!
+Père : Etat du fils avant wait(...) : 	==>Process(228) : Z (zombie)
+
+Père : Etat du fils après wait(...) : 	==>Process(228) Does not exist !
+Père : Je me termine.
+
+============ zsh ==============
+: 1761468638:0;cd TP-EmRTOS/Process
+: 1761468797:0;ls
+: 1761468913:0;make status
+: 1761468940:0;./status
+: 1761469089:0;cat /proc/38/status | grep State
+: 1761469312:0;nano Process.c
+: 1761469331:0;nano process.c
+: 1761469366:0;make process && ./process
+: 1761469467:0;jobs -l
+: 1761470186:0;make status ./status
+: 1761470193:0;./status
+: 1761470310:0;make status ./status
+: 1761470312:0;./status
+: 1761470343:0;make status ./status
+: 1761470344:0;./status
+: 1761470383:0;ps aux | grep status
+: 1761470401:0;pstree -p | grep status
+: 1761470464:0;sudo apt install pstree
+: 1761470481:0;sudo apt install psmisc
+: 1761470616:0;sudo apt-get install psmisc
+: 1761470625:0;sudo apt-get install pstree
+: 1761470653:0;pstree
+: 1761470672:0;sudo apt install -y pstree
+: 1761470679:0;sudo apt install -y psmisc
+: 1761470700:0;ps aux | grep status
+: 1761470711:0;./status
+: 1761470721:0;ps aux | grep status
+: 1761470726:0;cat /proc/<pid>/status | grep State
+: 1761470794:0;cat /proc/148/status | grep State
+: 1761470803:0;cat /proc/145/status | grep State
+: 1761470811:0;cat /proc/146/status | grep State
+: 1761470818:0;cat /proc/61/status | grep State
+: 1761470823:0;cat /proc/60/status | grep State
+: 1761470840:0;./PrintPIDStatus 145
+: 1761470847:0;./PrintPIDStatus 61
+: 1761470866:0;ps aux | grep process
+: 1761470877:0;fg
+: 1761470893:0;bg
+: 1761470928:0;ls
+: 1761470938:0;./GenLWRep-Process.sh
+: 1761470950:0;GenLWRep-Process.sh
+: 1761470960:0;chmod +x GenLWRep-Process.sh
+: 1761470962:0;./GenLWRep-Process.sh
+===============================
+248d986c0a3a7f5cb8fb62d35af07724 ./n.eloud.i1-REPORT--Process-TP-EmRTOS.log+++
