@@ -1,0 +1,36 @@
+#!/bin/bash
+set -e
+
+# Load variables from student.env
+if [ -f container.env ]; then
+    source container.env
+else
+    echo "❌ container.env not found!"
+    exit 1
+fi
+#. ./container.env
+
+if [ -f student.env ]; then
+    source student.env
+else
+    echo "❌ student.env not found!"
+    exit 1
+fi
+#. ./login.env
+
+
+# Check USER_NAME
+if [ -z "$USER_NAME" ] || [ "$USER_NAME" = "_2bf_" ]; then
+    echo "❌ ERROR: Please edit student.env and set USER_NAME properly!"
+    exit 1
+else
+    echo "✅ USER_NAME is set to: $USER_NAME"
+fi
+
+echo "Loading root ${ROOT_IMG_NAME}:${VERSION} image"
+docker load -i ${ROOT_IMG_NAME}_${VERSION}.tar.gz
+
+echo "Creating ${IMG_NAME}:${VERSION} container"
+docker build --build-arg USER_NAME=${USER_NAME} -t ${IMG_NAME}:${VERSION} \
+             . -f stud.Dockerfile
+
