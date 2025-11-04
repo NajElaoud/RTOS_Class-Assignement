@@ -1,0 +1,273 @@
+===============================
+Lab     : TP-EmRTOS
+Manip   : Threads
+Student : n.eloud.i1
+Date    : Tue Nov  4 10:27:16 UTC 2025
+===============================
+========== Folders ============
+/home/n.eloud.i1/WorkDir/TP-EmRTOS/Threads
+total 61440
+-rwxrwxr-x 1 n.eloud.i1 sblab  1529 Nov  4 07:49 GenLWRep-Threads.sh
+-rw-rw-r-- 1 n.eloud.i1 sblab  2427 Nov  4 07:47 libThAttr.h
+-rw-rw-r-- 1 n.eloud.i1 sblab   212 Nov  4 07:47 makefile
+-rw-r--r-- 1 n.eloud.i1 sblab   237 Nov  4 10:27 n.eloud.i1-REPORT--Threads-TP-EmRTOS.log
+-rwxr-xr-x 1 n.eloud.i1 sblab 21104 Nov  4 10:19 threads
+-rw-rw-r-- 1 n.eloud.i1 sblab  2579 Nov  4 10:19 threads.c
+-rw-r--r-- 1 n.eloud.i1 sblab 13032 Nov  4 10:19 threads.o
+.
+|-- GenLWRep-Threads.sh
+|-- libThAttr.h
+|-- makefile
+|-- n.eloud.i1-REPORT--Threads-TP-EmRTOS.log
+|-- threads
+|-- threads.c
+`-- threads.o
+
+0 directories, 7 files
+========= src Files ===========
+
+::::::::::::::::
+./threads.c
+::::::::::::::::
+     1	#define _GNU_SOURCE
+     2	#include <pthread.h>
+     3	#include <stdio.h>
+     4	#include <stdlib.h>
+     5	#include <unistd.h>
+     6	#include <errno.h>
+     7	#include "libThAttr.h"
+     8	
+     9	#define         C    100000000ul
+    10	#define         MSG_Nbr    10
+    11	#define         TH_Nbr     10
+    12	pthread_t       ThList[TH_Nbr];
+    13	pthread_attr_t  ThAttr;
+    14	
+    15	static void display_pthread_attr(pthread_attr_t* , char*);
+    16	void * tsr(void *);
+    17	
+    18	int main() {
+    19	  int err;
+    20	  void *ThStatus[TH_Nbr];
+    21	
+    22	  //display_pthread_attr(&ThAttr, "Void-Attr :");
+    23	  err = pthread_attr_init(&ThAttr);
+    24	  if (err) {
+    25	    printf("!! pthread_attr_init error !!\n");
+    26	    exit(EXIT_FAILURE);
+    27	  }
+    28	  display_pthread_attr(&ThAttr, "Default-Attr :");
+    29	  
+    30	  unsigned char i;
+    31	  for(i=0;i<TH_Nbr;i++){
+    32	    err = pthread_create(&ThList[i], &ThAttr, (void *)tsr,(void *)(long)i+1);
+    33	    if (err) {
+    34	      printf("!! pthread_create error !! \n");
+    35	      exit (EXIT_FAILURE);
+    36	    }
+    37	  }
+    38	
+    39	  printf("MAIN : PID= %d, TID= %lu\n", getpid(), pthread_self());
+    40	  printf("MAIN : J'ai cree les threads de TID [%lu ..%lu]\n", ThList[0], ThList[TH_Nbr-1]);
+    41	
+    42	  // Make thread 5 (index 4) DETACHED
+    43	  err = pthread_detach(ThList[4]);
+    44	  if (err) {
+    45	    printf("!! pthread_detach error for thread 5 !!\n");
+    46	    exit(EXIT_FAILURE);
+    47	  }
+    48	  
+    49	  // Get and display attributes of thread 5 
+    50	  pthread_attr_t Tattr;
+    51	  err = pthread_attr_init(&Tattr);
+    52	  if (err) {
+    53	    printf("!! pthread_attr_init error for Tattr !!\n");
+    54	    exit(EXIT_FAILURE);
+    55	  }
+    56	
+    57	  err = pthread_getattr_np(ThList[4], &Tattr);
+    58	  if (err) {
+    59	    printf("!! pthread_getattr_np error for thread 5 !!\n");
+    60	    exit(EXIT_FAILURE);
+    61	  }
+    62	  
+    63	  display_pthread_attr(&Tattr, "Thr N°5 Attr :");
+    64	  pthread_attr_destroy(&Tattr);
+    65	
+    66	  for(i=0;i<MSG_Nbr;i++){
+    67	    printf("%d-MAIN process\n",i);
+    68	    int j,k; for(j=0;j<C;j++){;} 
+    69	  }
+    70	
+    71	   for(i=0;i<TH_Nbr;i++){
+    72	     printf("MAIN : synchronisation sur la fin du Thread N°:%u (TID %lu) \n",\
+    73	            i+1, ThList[i]);
+    74	     err = pthread_join(ThList[i], &ThStatus[i]);
+    75	     if (err) {
+    76	       //printf("\t !! thread N°%u : pthread_join error !!\n", i+1);
+    77	       printf("\t !! pthread_join error <== Thread N°%u !!\n", i+1);
+    78	        //exit (EXIT_FAILURE);
+    79	       continue;
+    80	     }
+    81	     printf("\t==> status : %lu\n",(unsigned long) ThStatus[i]);
+    82	   }
+    83	  return 0;
+    84	}
+    85	
+    86	void * tsr(void * Arg) {
+    87	  uint My_Nbr= (uint)(long) Arg;
+    88	
+    89	  printf("je suis le thread N°%u. \n\tMon pid est %u. \n\tMon tid est %lu\n", \
+    90	         My_Nbr, getpid(), pthread_self());
+    91	  int i;  for(i=0;i<MSG_Nbr;i++){
+    92	    printf("\t%d-Thread N°%u\n", i, My_Nbr);
+    93	    for(unsigned long j=0;j<C;j++){;}
+    94	  }
+    95	  pthread_exit((void *)(long)(My_Nbr+100));
+    96	}
+========= bin Files ===========
+
+::::::::::::::::
+./threads
+::::::::::::::::
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Shared object file)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Entry point address:               0x1190
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          18864 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         11
+  Size of section headers:           64 (bytes)
+  Number of section headers:         35
+  Section header string table index: 34
+
+::::::::::::::::
+===> Running ./threads ::
+./GenLWRep-Threads.sh: line 31:   769 Segmentation fault      (core dumped) ./$fn < txt
+
+======== Compile test =========
+/home/n.eloud.i1/WorkDir/TP-EmRTOS/Threads
+rm -rf *.o
+rm -rf threads
+gcc -o threads.o -c threads.c -g
+gcc -o threads threads.o -lpthread
+.
+|-- GenLWRep-Threads.sh
+|-- libThAttr.h
+|-- makefile
+|-- n.eloud.i1-REPORT--Threads-TP-EmRTOS.log
+|-- threads
+|-- threads.c
+|-- threads.o
+`-- txt
+
+0 directories, 8 files
+======= Execution test ========
+===> Running ./threads ::
+./GenLWRep-Threads.sh: line 45:   792 Segmentation fault      (core dumped) ./$fn < txt
+
+============ zsh ==============
+: 1762242792:0;tree
+: 1762242841:0;cd TP-EmRTOS
+: 1762242865:0;mkdir Threads && cd Threads
+: 1762242879:0;tree
+: 1762242900:0;mv 2bf.threads.c threads.c
+: 1762242905:0;tree
+: 1762244300:0;pstree
+: 1762244347:0;sudo apt install psmisc
+: 1762244390:0;ps
+: 1762244394:0;ps -m
+: 1762244648:0;make threads
+: 1762244665:0;./threads
+: 1762244692:0;ps -m
+: 1762244726:0;nano threads.c
+: 1762244758:0;make threads
+: 1762244763:0;./threads
+: 1762244866:0;make threads
+: 1762244869:0;./threads
+: 1762244884:0;make threads
+: 1762244885:0;./threads
+: 1762244999:0;nano threads.c
+: 1762245008:0;make threads
+: 1762245012:0;./threads
+: 1762245041:0;ls -m
+: 1762245047:0;ps -m
+: 1762245153:0;killall ./threads
+: 1762245218:0;ps
+: 1762245229:0;kill 68
+: 1762245234:0;kill 88
+: 1762245252:0;ps
+: 1762245298:0;pkill ./threads
+: 1762245302:0;ps
+: 1762245308:0;kill 88
+: 1762245311:0;ps
+: 1762245329:0;kill -9 88
+: 1762245336:0;kill -9 68
+: 1762245338:0;ps
+: 1762245944:0;make ./threads
+: 1762245950:0;./threads
+: 1762246044:0;nano libThAttr.h
+: 1762246507:0;make threads
+: 1762246535:0;./threads
+: 1762246975:0;make threads
+: 1762247061:0;./threads
+: 1762248647:0;make threads
+: 1762248649:0;./threads
+: 1762248988:0;make threads
+: 1762248989:0;./threads
+: 1762249226:0;make threads
+: 1762249227:0;./threads
+: 1762249454:0;nano threads.c
+: 1762249476:0;make threads
+: 1762249478:0;./threads
+: 1762249522:0;make threads
+: 1762249523:0;./threads
+: 1762249689:0;make threads
+: 1762249691:0;./threads
+: 1762249973:0;make threads
+: 1762249975:0;./threads
+: 1762250089:0;make threads
+: 1762250091:0;./threads
+: 1762250227:0;make threads
+: 1762250228:0;./threads
+: 1762250336:0;make threads
+: 1762250337:0;./threads
+: 1762250695:0;make threads
+: 1762250696:0;./threads
+: 1762250736:0;make threads
+: 1762250737:0;./threads
+: 1762250771:0;nano threads.c
+: 1762250797:0;make threads
+: 1762250799:0;./threads
+: 1762250825:0;nano threads.c
+: 1762250850:0;make threads
+: 1762250857:0;./threads
+: 1762250870:0;nano threads.c
+: 1762250910:0;make threads
+: 1762250911:0;./threads
+: 1762251176:0;make threads
+: 1762251177:0;./threads
+: 1762251311:0;make threads
+: 1762251312:0;./threads
+: 1762251526:0;make threads
+: 1762251528:0;./threads
+: 1762251587:0;make threads
+: 1762251588:0;./threads
+: 1762251713:0;make threads
+: 1762251716:0;./threads
+: 1762251950:0;tree
+: 1762252018:0;./GenLWRep-Threads.sh
+: 1762252027:0;chmod +x GenLWRep-Threads.sh
+: 1762252031:0;./GenLWRep-Threads.sh
+===============================
+185da27483c9b994612f3d948f627c26 ./n.eloud.i1-REPORT--Threads-TP-EmRTOS.log+++
